@@ -1,0 +1,55 @@
+
+{% if tiquets|length>0 %}
+    <table class="table table-striped table-dark">
+        <tr>
+            <th scope="col">Tienda</th>
+            <th scope="col">CODIGO</th>
+            <th scope="col">CREACION</th>
+            <th scope="col">ESTADO</th>
+            <th></th>
+        </tr>
+
+        {% for tiquet in tiquets %}
+            <tr>
+                <td><small>{{ tiquet.getNegocio().getNombre() }}</small></td>
+                <td><small>{{ tiquet.getCodigo() }}</small></td>
+
+                <td><small>{{ tiquet.getCreateAt()|date('d/m/Y - h:i:s') }}</small></td>
+                <td><small>{{ tiquet.getEstado() }}</small></td>
+
+                <td class="buttons">
+                    {% if app.user!=null%}
+
+                        {% if app.user.role=='ADMINISTRADOR' %}
+
+                            <button type="button"><a href="{{ path('tiquet_eliminar',{id:tiquet.id}) }}" onclick="return confirm('¿Estás seguro?')" class="btn-pt">Anular</a></button>
+                            <button type="button"><a href="{{ path('tiquet_modificar',{id:tiquet.id}) }}" class="btn-show">Modificar </a></button>
+                            <button type="button"><a href="{{ path('tiquet_imprimir',{id:tiquet.id}) }}" target="_blank" class="btn-show">Imprimir </a></button>
+                        
+                        {% elseif app.user.role=='VENDEDOR' and app.user.id==tiquet.negocio.usuario.id %}
+                           <button type="button"> <a href="{{ path('tiquet_eliminar',{id:tiquet.id}) }}" onclick="return confirm('¿Estás seguro?')" class="btn-pt">Anular</a></button>
+                           <button type="button"><a href="{{ path('tiquet_modificar',{id:tiquet.id}) }}" class="btn-show">Modificar </a></button>
+                           <button type="button"> <a href="{{ path('tiquet_imprimir',{id:tiquet.id}) }}"   target="_blank" class="btn-show">Imprimir </a></button>
+
+                      
+                        
+                        {% elseif app.user.id==tiquet.usuario.id  %}
+                           <button type="button"> <a href="{{ path('tiquet_eliminar',{id:tiquet.id}) }}" onclick="return confirm('¿Estás seguro?')" class="btn-pt">Anular</a></button>
+                            
+                            <button type="button"><a href="{{ path('tiquet_imprimir',{id:tiquet.id}) }}"  target="_blank" class="btn-show">Imprimir </a></button>
+
+                        {% endif %}
+
+
+                    {% endif %}
+
+
+
+                </td>
+            </tr>
+
+        {% endfor %}
+    </table>
+{% else %}
+    <strong>No hay tiques disponibles en este momento</strong>
+{% endif %}

@@ -1,0 +1,69 @@
+{% block refrescar %} <meta http-equiv="refresh" content="10" />{% endblock %}
+{% if tiquets|length>0 %}
+
+
+    {% for tiquet in tiquets %}
+       
+        
+        {% if app.user!=null%}
+
+            
+            {% if app.user.id==tiquet.usuario.id  %}
+                <div class="container">
+                    <hr>
+                    <h2> {{ tiquet.getNegocio().getNombre() }}</h2>
+                    <hr>
+                    <strong>Codigo: {{ tiquet.getCodigo() }}</strong>
+                    <br>
+                    <strong> Creación: {{ tiquet.getCreateAt()|date('d/m/Y - h:i:s') }}</strong>
+                    <br>
+                    Estado actual: {{ tiquet.getEstado() }}
+                    <br>
+                
+                    
+                    {% set tiquesNegocio=tiquet.getNegocio().getTiquet() %}
+                    {% set ind = -1 %} 
+                    {% for tiq in tiquesNegocio %}
+                        {% set estado=tiq.getEstado() %}
+                        {% if estado=="EN ESPERA" %}
+                            {% set ind = ind +1 %} 
+                        {% endif %}
+                        
+                        {% if tiq==tiquet %}
+                            {% if ind>0 %}
+                           {{ ind }} clientes por delante 
+                           {% else %} Es su turno.
+                           {% endif %} 
+                           
+                        {#
+                           {% if ind==0%} (No tiene a nadie por delante, es su turno.)
+                               {%  else %}
+                                (aproximadamente {{ ind * 5 }} minutos)
+                           {% endif %}
+                        #}
+                        {% endif %}
+                        
+                    {% endfor %}
+                    
+                     
+                    
+                    <br>
+                    <button type="button"> <a href="{{ path('tiquet_eliminar',{id:tiquet.id}) }}" onclick="return confirm('¿Estás seguro?')" class="btn-pt">Anular</a></button>
+
+                    <button type="button"><a href="{{ path('tiquet_imprimir',{id:tiquet.id}) }}"  target="_blank" class="btn-show">Imprimir </a></button>
+                    <hr>
+                </div>
+            {% endif %}
+
+
+        {% endif %}
+
+
+
+
+
+    {% endfor %}
+
+{% else %}
+    <strong>No hay tiques disponibles en este momento</strong>
+{% endif %}

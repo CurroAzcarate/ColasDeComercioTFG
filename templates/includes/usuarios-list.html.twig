@@ -1,0 +1,43 @@
+
+{% if usuarios|length>0 and app.user !=null %}
+    <br/><br/>
+    <table class="table table-striped table-dark">
+        <tr>
+            <th scope="col">ROL</th>
+            <th scope="col">NOMBRE</th>
+            <th scope="col">APELLIDOS</th>
+            <th scope="col">E-MAIL</th>
+            <th scope="col">FECHA DE CREACIÓN</th>
+            <th></th>
+        </tr>
+
+        {% for usuario in usuarios %}
+            {% if usuario.id==app.user.getId() or app.user.getROLE()=='ADMINISTRADOR'%}
+            <tr>
+                <td><small>{{ usuario.role }}</small></td>
+
+                <td><small>{{ usuario.name }}</small></td>
+                <td><small>{{ usuario.surname }}</small></td>
+
+                <td><small>{{ usuario.email }}</small></td>
+                <td><small>{{ usuario.createAt |date('d/m/Y - h:i:s')}}</small></td>
+                <td><small>
+
+                    {%if app.user !=null  %}
+                       
+                         <button type="button"> <a href="{{ path('usuario_modificar', {id:usuario.id}) }}" >Editar</a></button>
+                         <button type="button"><a href="{{ path('change_pass', {id:usuario.id}) }}">Cambiar Password</a></button>
+                         <button type="button"><a href="{{ path('usuario_eliminar',{id:usuario.id}) }}" onclick="return confirm('¿Estás seguro?')">Eliminar</a></button>
+                       
+                    {% endif %}
+
+                    </small>
+                </td>
+            </tr>
+            {% endif %}
+
+        {% endfor %}
+    </table>
+{% else %}
+    <strong>No hay usuarios para mostrar</strong>
+{% endif %}

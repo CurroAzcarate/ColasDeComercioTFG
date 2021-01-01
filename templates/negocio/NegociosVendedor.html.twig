@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MIS NEGOCIOS{% endblock %}
+
+{% block body %}
+
+
+    <div class="container table table-responsive table-sm">
+        <h1>MIS NEGOCIOS </h1>
+
+
+        {% if negocios|length>0 %}
+            <table  class="table table-striped table-dark">
+                <tr>
+                    <th scope="col">NEGOCIO</th>
+                    <th scope="col">DESCRIPCIÓN</th>
+
+                    <th scope="col"></th>
+                </tr>
+
+                {% for negocio in negocios %}
+                    <tr>
+                        {%if app.user !=null and negocio.usuario.id==app.user.id %}
+                            <td>{{ negocio.nombre }}</td>
+
+                            <td>{{ negocio.descripcion }}</td>
+                            <td>
+
+
+
+
+                                <button type="button"><a href="{{ path('turnos',{id:negocio.id}) }}">Ver Turnos</a></button>
+                                <button type="button"><a href="{{ path('sacar_tiquet',{id:negocio.id}) }}" class="btn-pt">Sacar Tique</a></button>
+                                <button type="button"><a href="{{ path('modificar_negocio',{id:negocio.id}) }}" class="btn-edit">Editar</a></button>
+                                <button type="button"><a href="{{ path('eliminar_negocio',{id:negocio.id}) }}" onclick="return confirm('¿Estás seguro?')" class="btn-delete">Eliminar</a></button>
+
+
+
+
+                            </td>    
+                        {% endif %}
+                    </tr>
+
+                {% endfor %}
+            </table>
+        {% else %}
+            <strong>No hay negocios disponibles en este momento</strong>
+        {% endif %}
+
+
+
+    </div>
+{% endblock %}

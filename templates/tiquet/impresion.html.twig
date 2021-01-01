@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Mi Turno{% endblock %}</title>
+        
+    </head>
+    <body>
+        {% block header %}
+           
+            <div class="clearfix"></div>
+        {% endblock %}
+        {% block body %}
+        <div>
+    <h1>MI TURNO </h1>
+     Tienda : {{ tiquet.getNegocio().getNombre() }}<br/>
+     Codigo del tique: {{ tiquet.getCodigo() }}<br/>
+     Fecha y hora de emisión: {{ tiquet.getCreateAt()|date('d/m/Y - h:i:s') }}<br/>
+    
+    
+    
+    
+
+    
+</div>
+        {% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
+
+
+

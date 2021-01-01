@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+       {% block refrescar %}{% endblock %}
+        <title>{% block title %}Comercio{% endblock %}</title>
+        {% block stylesheets %}
+            <link href="{{ asset('build/global.css') }}" type="text/css" rel="stylesheet"/>
+            
+        
+        {% endblock %}
+    </head>
+    <body>
+        <link href="{{ asset('build/app.js') }}" />
+        {% block header %}
+            <div class="container" id="header">
+                <h1></h1>
+                
+                <ul class="nav nav-pills  nav-fill nav-tabs" id="menu">
+                    
+                    
+                    
+                   {% if app.user %}
+                       {% if app.user.role=='CLIENTE' %}  
+                        {#<li class="nav-item"><a class="nav-link" href="{{ path('index') }}">Inicio</a> </li>#}
+                        <li class="nav-item"><a class="nav-link" href="{{ path('SusTiquets') }}">Mis Tiques</a> </li>
+                        <li class="nav-item"><a class="nav-link" href="{{ path('listar_negocios') }}">Negocios Disponibles</a> </li>
+                        <li class="nav-item"><a class="nav-link" href="{{ path('listar_usuarios') }}">Datos Personales</a></li>
+                        
+                        <li class="nav-item" id="right"><a class="nav-link" href="{{ path('logout') }}">Cerrar Sesión</a></li>  
+                        
+                        {% elseif app.user.role=='VENDEDOR' %}  
+                        
+                        {#<li class="nav-item"><a class="nav-link" href="{{ path('index') }}">Inicio</a> </li>#}
+                        <li class="nav-item"><a class="nav-link" href="{{ path('SusTiquets') }}">Mis Tiques</a> </li>
+                        {#<li class="nav-item"><a class="nav-link" href="{{ path('listar_negocios') }}">Datos Negocio</a></li><li class="nav-item"><a  class="nav-link" href="{{ path('lista_tiquets') }}">Tiquets</a> </li>#}
+                        <li class="nav-item"><a class="nav-link" href="{{ path('listar_negocios') }}">Negocios Disponibles</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ path('crear_negocio') }}">Crear Negocio</a></li> 
+                        <li class="nav-item"><a class="nav-link" href="{{ path('controlPropiosNegocios') }}">Mis Negocios</a></li> 
+                        <li class="nav-item"><a class="nav-link" href="{{ path('listar_usuarios') }}">Datos Personales</a></li>
+                        
+                       
+                        <li class="nav-item" id="right"><a class="nav-link" href="{{ path('logout') }}">Cerrar Sesión</a></li>  
+                        {% else %}
+                        
+                        {#<li class="nav-item"><a class="nav-link" href="{{ path('index') }}">Inicio</a> </li>#}
+                        <li class="nav-item"><a class="nav-link" href="{{ path('SusTiquets') }}">Mis Tiques</a> </li>
+                        {#<li class="nav-item"><a class="nav-link" href="{{ path('lista_tiquets') }}">Tiques App</a> </li>#}
+                        <li class="nav-item"><a class="nav-link" href="{{ path('listar_usuarios') }}">Usuarios</a> </li>
+             
+                        <li class="nav-item"><a class="nav-link" href="{{ path('register') }}">Crear Usuario</a> </li>
+                        <li class="nav-item"><a class="nav-link" href="{{ path('listar_negocios') }}">Negocios Disponibles</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ path('crear_negocio') }}">Crear Negocio</a></li>
+                        
+                        <li class="nav-item"><a class="nav-link" href="{{ path('controlPropiosNegocios') }}">Mis Negocios</a></li>
+                        
+                        <li class="nav-item" id="right"><a class="nav-link" href="{{ path('logout') }}">Cerrar Sesión</a></li> 
+                       {% endif %}
+                    {% else %}    
+                        {#<li class="nav-item"><a class="nav-link" href="{{ path('index') }}">Inicio</a> </li>#}
+                        <li class="nav-item"><a class="nav-link" href="{{ path('login') }}">Login</a> </li>
+                        <li class="nav-item"><a class="nav-link" href="{{ path('register') }}">Registro</a> </li>
+                    {% endif %}
+                    
+                    
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+        {% endblock %}
+        {% block body %}
+            <script> src ={{ asset('build/app.js') }}</script>
+        {% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

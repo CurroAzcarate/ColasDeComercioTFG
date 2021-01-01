@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Principal{% endblock %}
+
+{% block body %}
+
+
+    <div class="container">
+        <br/><br/>
+        {# <img src="{{ asset('Logo_etsi_jpg.jpg', 'imagenlogo') }}" class="img-fluid rounded mx-auto d-block" alt="ETSI UHU" /> #}
+
+        {% if app.user %}
+            {% if app.user.role=='CLIENTE' %}  
+                
+
+             <meta http-equiv="refresh" content="0; url=SusTiquets">
+
+
+            {% elseif app.user.role=='VENDEDOR' %}  
+
+                <meta http-equiv="refresh" content="0; url=controlnegocio">
+
+            {% else %} {# Es el administrador, por defecto listado de negocios#}
+                <meta http-equiv="refresh" content="0; url=negocios/listar">
+                
+
+                
+            {% endif %}
+        {% else %} {#Si no esta loqueado, pediremos por defecto el login#}
+            <meta http-equiv="refresh" content="0; url=login">
+        {% endif %}
+
+
+
+
+    </div>
+{% endblock %}

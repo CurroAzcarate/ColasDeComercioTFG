@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login de usuarios{% endblock %}
+
+{% block body %}
+
+
+<div class="container my-4">
+    <h2>Login de usuarios</h2>
+    
+    {% if error %}
+        <div class="alert alert_error">
+            {{ error.messagekey|trans(error.messageData,'security') }}
+        </div>
+    {% endif %}
+    
+    
+    <form action="{{path('login')}}" method="POST">
+        
+        {#<label for="username"> Email </label>#}
+      
+        
+        <input  placeholder="Email" class="form-control my-2" type="email" id="username" name="_username" value="{{ last_username }}" />
+        
+        
+        {#<label for="password">Contraseña</label>#}
+        
+        
+        <input  placeholder="Password" class="form-control my-2" type="password" id="password" name="_password" />
+        
+        <div class="clearfix"></div>
+        <input type="submit" class="btn btn-primary" value="Entrar" />
+    </form>
+        <br/><br/>
+        <a href="{{ path('resetPass') }}" id="newPa">He olvidado la contraseña </a>
+    
+</div>
+{% endblock %}

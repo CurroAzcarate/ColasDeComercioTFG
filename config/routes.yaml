@@ -1,0 +1,94 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+register:
+    path: /registro
+    controller: App\Controller\UsuarioController::register
+login:
+    path: /login
+    controller: App\Controller\UsuarioController::login
+    
+listar_usuarios:
+    path: /usuario/listar
+    controller: App\Controller\UsuarioController::listado
+    
+index:
+    path: /
+    controller: App\Controller\IndexController::index
+    
+logout:
+    path: /logout
+    
+crear_negocio:
+    path: /crear_negocio
+    controller: App\Controller\NegocioController::creation
+    
+modificar_negocio:
+    path: /modificar_negocio/{id}
+    controller: App\Controller\NegocioController::edit
+eliminar_negocio:
+    path: /eliminar_negocio/{id}
+    controller: App\Controller\NegocioController::eliminar
+    
+listar_negocios:
+    path: /negocios/listar
+    controller: App\Controller\NegocioController::ListadoComercios
+    
+sacar_tiquet:
+    path: /sacar_tiquet/{id}
+    controller: App\Controller\TiquetController::sacarTiquet
+    
+mis_tiquets:
+    path: /mis_tiquets
+    controller: App\Controller\TiquetController::misTiquets
+    
+lista_tiquets:
+    path: /lista_tiquets
+    controller: App\Controller\TiquetController::listadotiquets
+
+tiquet_eliminar:
+    path: /tiquet/eliminar/{id}
+    controller: App\Controller\TiquetController:eliminar
+    
+tiquet_modificar:
+    path: /tiquet/modificar/{id}
+    controller: App\Controller\TiquetController:edit
+    
+tiquet_imprimir:
+    path: /tiquet/imprimir/{id}
+    controller: App\Controller\TiquetController:imprimir
+    
+    
+turnos:
+    path: /turnos/{id}
+    controller: App\Controller\TiquetController:VerTurnos
+    
+SusTiquets:
+    path: /SusTiquets
+    controller: App\Controller\TiquetController:TiquetsCliente
+    
+controlPropiosNegocios:
+    path: /controlnegocio
+    controller: App\Controller\NegocioController:ListadoComercios_turnos
+    
+usuario_modificar:
+    path: /usuario/modificar/{id}
+    controller: App\Controller\UsuarioController:edit
+    
+usuario_eliminar:
+    path: /usuario/eliminar/{id}
+    controller: App\Controller\UsuarioController:eliminar
+    
+    
+captcha_routing:
+    resource: "@CaptchaBundle/Resources/config/routing.yml"
+    
+change_pass:
+    path: /usuario/changepass/{id}
+    controller: App\Controller\UsuarioController:editPasswd
+resetPass:
+    path: /usuario/resetPass
+    controller: App\Controller\UsuarioController:resetPass  
+    
+    
